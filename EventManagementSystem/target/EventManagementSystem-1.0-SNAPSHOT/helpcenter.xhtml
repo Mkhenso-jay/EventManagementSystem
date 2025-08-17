@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Eventify | Help Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <style>
+        :root {
+            --primary: #2ec4b6;
+            --secondary: #1fa89a;
+            --surface: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .nav-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 6rem auto 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .faq {
+            margin-top: 30px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            padding: 1.5rem;
+            background: rgba(46,196,182,0.05);
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateX(10px);
+        }
+
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .faq-answer {
+            margin-left: 2rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .contact-box {
+            margin-top: 40px;
+            padding: 2rem;
+            background: #f1f5f9;
+            border-left: 5px solid var(--primary);
+            border-radius: 0.5rem;
+        }
+
+        .contact-box h3 {
+            margin: 0 0 10px 0;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .contact-box p {
+            margin: 10px 0;
+            padding-left: 2rem;
+        }
+
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 5rem 1rem 2rem;
+                padding: 1rem;
+            }
+
+            .nav {
+                padding: 1rem;
+            }
+
+            .nav-title {
+                font-size: 1.25rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <!-- Navigation -->
+    <div class="nav">
+        <div class="nav-title">
+            <i class="fas fa-question-circle"></i>
+            Eventify Help
+        </div>
+        <div class="nav-links">
+            <a href="landing.xhtml" class="nav-link">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+            <a href="contact.xhtml" class="nav-link">
+                <i class="fas fa-envelope"></i>
+                Contact
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1><i class="fas fa-life-ring"></i> Help Center</h1>
+
+        <p>Welcome to the Eventify Help Center! Here you'll find answers to frequently asked questions and guidance on how to use the platform.</p>
+
+            <div class="faq">
+            <div class="faq-item">
+                <div class="faq-question"><i class="fas fa-ticket-alt"></i> How do I purchase a ticket?</div>
+                <div class="faq-answer">Go to the event list on the home page, choose your desired event, enter the quantity (only one per transaction), and click "Purchase Ticket".</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question"><i class="fas fa-wallet"></i> What payment methods are supported?</div>
+                <div class="faq-answer">We currently support payments via PayFast, including options like EFT, card payments, and more.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question"><i class="fas fa-ticket"></i> Where can I see my purchased tickets?</div>
+                <div class="faq-answer">Navigate to the "My Tickets" section in the sidebar to view all your purchased tickets and event details.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question"><i class="fas fa-envelope"></i> I didn’t receive a confirmation email. What should I do?</div>
+                <div class="faq-answer">Please check your spam/junk folder. If it’s not there, contact us using the details below.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question"><i class="fas fa-user-shield"></i> How do I report a problem with an event?</div>
+                <div class="faq-answer">Use the contact details below to reach our support team, and we’ll assist you promptly.</div>
+            </div>
+        </div>
+
+        <div class="contact-box">
+            <h3><i class="fas fa-headset"></i> Contact Support</h3>
+            <p><strong>Email:</strong> support@eventify.co.za</p>
+            <p><strong>Phone:</strong> +27 12 345 6789</p>
+            <p><strong>Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2024 Eventify. All rights reserved. 
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Service</a> | 
+            <a href="#">Contact Us</a>
+        </p>
+    </div>
+</h:body>
+</html>

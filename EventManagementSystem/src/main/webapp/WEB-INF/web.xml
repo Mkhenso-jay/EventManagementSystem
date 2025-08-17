@@ -1,0 +1,96 @@
+<web-app version="6.0"
+         xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+
+    <!-- Jakarta Faces Configuration -->
+    <context-param>
+        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <!-- Faces Servlet w/ Multipart -->
+    <servlet>
+        <servlet-name>FacesServlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        <multipart-config>
+            <!-- Absolute path to your src/main/uploads folder -->
+            <location>C:/Users/DevSpark Studios/uploads</location>
+            <!-- Max file size: 5 MB -->
+            <max-file-size>5242880</max-file-size>
+            <!-- Max request size (all parts): 10 MB -->
+            <max-request-size>10485760</max-request-size>
+            <!-- Immediately write to disk -->
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FacesServlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <!-- JAX-RS Servlet for PayFast -->
+    <servlet>
+        <servlet-name>javax.ws.rs.core.Application</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>api.PayFastIPNResource</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>javax.ws.rs.core.Application</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Session timeout -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- Welcome file -->
+    <welcome-file-list>
+        <welcome-file>landing.xhtml</welcome-file>
+    </welcome-file-list>
+
+    <!-- 1. Protect all pages under /secure/* -->
+    <security-constraint>
+        <display-name>Protected Area</display-name>
+        <web-resource-collection>
+            <web-resource-name>Secure Pages</web-resource-name>
+            <url-pattern>/secure/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>VenueOwner</role-name>
+            <role-name>EventOrganizer</role-name>
+            <role-name>TicketBuyer</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- 2. FORM‑based authentication -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>event_system</realm-name>
+        <form-login-config>
+            <form-login-page>/landing.xhtml</form-login-page>
+            <form-error-page>/loginFailed.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <!-- 3. Declare security roles -->
+    <security-role>
+        <role-name>VenueOwner</role-name>
+    </security-role>
+    <security-role>
+        <role-name>EventOrganizer</role-name>
+    </security-role>
+    <security-role>
+        <role-name>TicketBuyer</role-name>
+    </security-role>
+
+</web-app>

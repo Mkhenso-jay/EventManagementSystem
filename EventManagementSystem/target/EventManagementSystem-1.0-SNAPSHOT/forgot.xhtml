@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Account Recovery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        :root {
+            --primary: #2ec4b6;
+            --secondary: #3f37c9;
+            --accent: #ff7f50;
+            --surface: rgba(255, 255, 255, 0.98);
+            --error: #ff4d4d;
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: white;
+            display: grid;
+            place-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200vw;
+            height: 200vh;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255,127,80,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(67,97,238,0.1) 0%, transparent 50%);
+            animation: float 15s var(--transition) infinite;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-title .material-icons {
+            font-size: 1.75rem;
+            color: var(--accent);
+        }
+        
+        .nav-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    color: #2d3748;
+    background-color: #f7fafc;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.btn i {
+    font-size: 16px;
+    color: #4a5568;
+}
+
+.btn:hover {
+    background-color: #edf2f7;
+    border-color: #cbd5e0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #1a365d;
+}
+
+.btn:hover i {
+    color: #2b6cb0;
+}
+
+/* Active state styling */
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus accessibility */
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(15px);
+            transform: translateY(0);
+            transition: transform 0.3s var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h2 {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin: 0 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .option-group {
+            margin-bottom: 2rem;
+        }
+
+        .fields {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            pointer-events: none;
+            transition: all 0.3s var(--transition);
+            background: var(--surface);
+            padding: 0 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-group input, 
+        .input-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s var(--transition);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67,97,238,0.1);
+        }
+
+        .input-group input:not(:placeholder-shown) + label,
+        .input-group input:focus + label,
+        .input-group select:not([value=""]) + label,
+        .input-group select:focus + label {
+            top: 0;
+            font-size: 0.875rem;
+            color: var(--primary);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(67,97,238,0.2);
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s var(--transition);
+        }
+
+        .btn-submit:hover::after {
+            left: 150%;
+        }
+
+        .material-icons {
+            font-size: 1.25rem;
+            vertical-align: middle;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(255,77,77,0.1);
+            border-radius: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .nav-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</h:head>
+<h:body>
+   <div class="nav" style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+    <div class="nav-title">
+        <i class="fas fa-user-shield"></i> Eventify Account Recovery
+    </div>
+    <div class="nav-links">
+        <a href="landing.xhtml" class="btn">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="signup.xhtml" class="btn">
+            <i class="fas fa-user-plus"></i> Sign Up
+        </a>
+    </div>
+</div>
+
+
+    <div class="container">
+        <div class="header">
+            <h2>
+               <i class="fas fa-key"></i>
+
+                Account Recovery
+            </h2>
+        </div>
+
+        <h:form>
+            <div class="option-group">
+                <div class="input-group">
+                    <h:selectOneMenu id="mode" value="#{forgotBean.mode}" required="true">
+                        <f:selectItem itemLabel="Select Recovery Option" itemValue="" />
+                        <f:selectItem itemLabel="Retrieve Email" itemValue="retrieveEmail" />
+                        <f:selectItem itemLabel="Reset Password" itemValue="changePassword" />
+                        <f:selectItem itemLabel="Update Credentials" itemValue="changeDetails" />
+                    </h:selectOneMenu>
+                    <label for="mode">
+                       <i class="fas fa-cog"></i>
+
+                        Recovery Type
+                    </label>
+                </div>
+            </div>
+
+            <div class="fields">
+                <div class="input-group">
+                    <h:inputText id="userCode" value="#{forgotBean.userCode}" required="true" />
+                    <label for="userCode">
+                        <i class="fas fa-fingerprint"></i>
+
+                        User Code
+                    </label>
+                </div>
+
+           
+            </div>
+
+            <h:messages globalOnly="true" styleClass="error-message" 
+                      errorClass="error-message" />
+
+            <h:commandButton styleClass="btn-submit"
+                           value="Continue"
+                           action="#{forgotBean.processInitialStep}">
+            </h:commandButton>
+            
+            
+        </h:form>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+    <head>
+        <title>Venue Owner | Eventify</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+              integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+        <style type="text/css">
+            :root {
+                --primary-color: #008080;
+                --secondary-color: #006666;
+                --highlight-color: #00cccc;
+                --text-color: #333333;
+                --bg-color: #ffffff;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', system-ui, sans-serif;
+            }
+
+            .main-header {
+                background: var(--bg-color);
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+
+            .header-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                text-decoration: none;
+            }
+
+
+
+            .brand-text {
+                font-size: 1.5rem;
+                color: var(--primary-color);
+                font-weight: 700;
+            }
+
+            .nav-menu {
+                display: flex;
+                gap: 2rem;
+                align-items: center;
+            }
+
+            .nav-link {
+                color: var(--text-color);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                transition: all 0.3s ease;
+            }
+
+            .nav-link:hover {
+                background: #f0fafa;
+                color: var(--secondary-color);
+            }
+
+            .header-controls {
+                display: flex;
+                gap: 1.5rem;
+                align-items: center;
+            }
+
+         
+            .user-profile {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                cursor: pointer;
+                position: relative;
+                padding: 0.5rem;
+                border-radius: 4px;
+            }
+
+            .user-profile:hover {
+                background: #f0fafa;
+            }
+
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background: var(--primary-color);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .header-user-menu {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: white;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                border-radius: 4px;
+                padding: 0.5rem 0;
+                min-width: 200px;
+                display: none;
+            }
+
+            .user-profile:hover .header-user-menu {
+                display: block;
+            }
+
+            .user-menu-item {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 0.75rem 1.5rem;
+                color: var(--text-color);
+                text-decoration: none;
+                transition: background 0.2s ease;
+            }
+
+            .user-menu-item:hover {
+                background: #f5f5f5;
+            }
+
+            /* Mobile Styles */
+            .mobile-menu-checkbox {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: none;
+                font-size: 1.5rem;
+                color: var(--primary-color);
+                cursor: pointer;
+                padding: 1rem;
+            }
+
+            .mobile-menu-container {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(255,255,255,0.95);
+                z-index: 999;
+            }
+
+            @media (max-width: 992px) {
+                .nav-menu {
+                    display: none;
+                }
+                .mobile-menu-btn {
+                    display: block;
+                }
+
+                .mobile-menu-checkbox:checked ~ .mobile-menu-container {
+                    display: block;
+                }
+
+                .mobile-nav {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 1rem;
+                }
+
+                .mobile-nav-link {
+                    padding: 1rem;
+                    text-decoration: none;
+                    color: var(--text-color);
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    border-bottom: 1px solid #eee;
+                }
+
+                .mobile-user-section {
+                    margin-top: 2rem;
+                    padding: 1rem;
+                    background: #f8f8f8;
+                    border-radius: 4px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header class="main-header">
+            <div class="header-container">
+                <a href="/" class="brand">
+                    <span class="brand-text"> Explore Events</span>
+                </a>
+
+                <nav class="nav-menu">
+
+                    <a href="#{request.contextPath}/homeTicketBuyer.xhtml" class="nav-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    
+
+                </nav>
+
+                <div class="header-controls">
+                 
+
+                    <div class="user-profile">
+                        <div class="user-avatar"></div>
+                        <strong><h:outputText value="#{loginBean.email}" /></strong>
+                        <i class="fas fa-chevron-down"></i>
+
+                        <div class="header-user-menu">
+                            <a href="#" class="user-menu-item">
+                                <i class="fas fa-user-circle"></i> My Profile
+                            </a>
+                         
+                            <h:form>
+                                <h:commandLink action="#{loginBean.logout}" styleClass="user-menu-item">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </h:commandLink>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
+           
+            </div>
+
+  
+        </header>
+    </body>
+</html>

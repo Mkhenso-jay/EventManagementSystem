@@ -1,0 +1,63 @@
+const venueOwnerId = 1;
+const eventId = 1;
+const organizerId = 2; // Replace with actual event organizer ID
+
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.innerText = text;
+    return div.innerHTML;
+}
+
+function loadVenueOwnerMessages() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/getMessagesForVenueOwner?venueOwnerId=' + encodeURIComponent(venueOwnerId) + '&eventId=' + encodeURIComponent(eventId), true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const messages = JSON.parse(xhr.responseText);
+            const container = document.getElementById('messages');
+            container.innerHTML = '';
+
+            if (messages.length > 0) {
+                messages.forEach(function (msg) {
+                    const div = document.createElement('div');
+                    div.className = 'message';
+
+                    const senderLabel = msg.senderId === venueOwnerId ? "You" : "Organizer";
+                    div.innerHTML = '<span class="sender">' + senderLabel + ':</span> ' + escapeHtml(msg.content);
+                    container.appendChild(div);
+                });
+                container.scrollTop = container.scrollHeight;
+            } else {
+                const div = document.createElement('div');
+                div.className = 'message';
+                div.innerHTML = 'No messages available.';
+                container.appendChild(div);
+            }
+        }
+    };
+    xhr.send(null);
+}
+
+function sendVenueOwnerMessage() {
+    const input = document.getElementById('message-input');
+    const message = input.value.trim();
+    if (!message) return;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/sendMessage', true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(JSON.stringify({
+        senderId: venueOwnerId,
+        receiverId: organizerId,
+        content: message,
+        eventId: eventId
+    }));
+
+    input.value = '';
+    setTimeout(loadVenueOwnerMessages, 500);
+}
+
+window.onload = function () {
+    loadVenueOwnerMessages();
+    setInterval(loadVenueOwnerMessages, 3000); // Auto-refresh every 3 seconds
+};

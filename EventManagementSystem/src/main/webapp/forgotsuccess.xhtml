@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>Recovery Success</title>
+    <style>
+        @keyframes flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(-45deg, #a8e6ff, #6cc8fa, #4ea8e9, #87ceeb);
+            background-size: 400% 400%;
+            animation: flow 20s ease infinite;
+        }
+        .container {
+            max-width: 500px;
+            margin: 5rem auto;
+            background: rgba(255,255,255,0.9);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #333;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="container">
+        <h2>Success!</h2>
+        <p>Your account has been updated.</p>
+        <p>You may now <a href="landing.xhtml">home</a> with your new details.</p>
+    </div>
+</h:body>
+</html>

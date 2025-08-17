@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Eventify | Payment Cancelled</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        :root {
+            --error: #EF4444;
+            --error-dark: #DC2626;
+            --surface: #ffffff;
+            --background: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--background) 0%, #fef2f2 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-width: 640px;
+            width: 100%;
+            position: relative;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .error-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--error);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: -4rem auto 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.2);
+        }
+
+        h1 {
+            color: #1e293b;
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin: 0 0 1rem;
+        }
+
+        p {
+            color: #64748b;
+            margin: 1rem 0 1.5rem;
+            line-height: 1.5;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--error);
+            color: white;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            width: fit-content;
+            margin: 1rem auto 0;
+        }
+
+        .btn-home:hover {
+            background: var(--error-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+</h:head>
+
+<h:body>
+    <div class="card">
+        <div class="error-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+        </div>
+
+        <h1>Payment Cancelled</h1>
+        <p>Your payment was not completed. No tickets have been reserved.</p>
+        
+        <h:link outcome="homeTicketBuyer.xhtml" styleClass="btn-home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Return to Events
+        </h:link>
+    </div>
+</h:body>
+</html>

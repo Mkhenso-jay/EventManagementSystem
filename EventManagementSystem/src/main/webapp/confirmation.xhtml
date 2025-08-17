@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+    <h:head>
+        <title>Registration Confirmation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+        <style>
+            :root {
+                --primary: #2ec4b6;
+                --secondary: white;
+                --accent: #f59e0b;
+                --text: #2d3748;
+            }
+
+            body {
+                font-family: 'Inter', system-ui, -apple-system, sans-serif;
+                margin: 0;
+                padding: 0;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                position: relative;
+                overflow: hidden;
+            }
+
+            .confetti {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background: rgba(255,255,255,0.5);
+                border-radius: 50%;
+                animation: confetti 3s infinite;
+            }
+
+            @keyframes confetti {
+                0% {
+                    transform: translateY(-100vh) rotate(0deg);
+                }
+                100% {
+                    transform: translateY(100vh) rotate(720deg);
+                }
+            }
+
+            .card {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 2.5rem;
+                border-radius: 1.5rem;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+                max-width: 450px;
+                width: 90%;
+                text-align: center;
+                position: relative;
+                backdrop-filter: blur(10px);
+                transform: translateY(0);
+                transition: transform 0.3s ease;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+            .success-icon {
+                font-size: 4rem;
+                color: var(--primary);
+                margin-bottom: 1.5rem;
+                animation: bounce 1s ease;
+            }
+
+            @keyframes bounce {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-20px);
+                }
+            }
+
+            h2 {
+                color: var(--text);
+                margin: 0 0 1rem;
+                font-size: 2rem;
+                font-weight: 800;
+            }
+
+            h5 {
+                color: var(--primary);
+                margin: 0 0 2rem;
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
+
+            .info {
+                background: orange;
+                padding: 1.5rem;
+                border-radius: 1rem;
+                margin: 2rem 0;
+                position: relative;
+            }
+
+            .info p {
+                margin: 0;
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: var(--text);
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                justify-content: center;
+            }
+
+            .btn-home {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 1rem 2rem;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                color: white;
+                text-decoration: none;
+                border-radius: 0.75rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-home:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(255, 165, 0, 0.3); /* Orange shadow */
+            }
+
+
+            /* Generate random confetti */
+            @for $i from 1 through 50 {
+                .confetti:nth-child(#{$i}) {
+                    left: random(100) * 1%;
+                    animation-delay: random(3) + s;
+                    background: hsl(random(360), 70%, 60%);
+                }
+            
+        </style>
+    </h:head>
+    <h:body>
+        <!-- Animated confetti background -->
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+
+        <div class="card">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h2>Registration Successful!</h2>
+            <h5><i class="fas fa-camera mr-2"></i>Capture Your Unique Code</h5>
+
+            <div class="info">
+                <p>
+                    <i class="fas fa-id-badge"></i>
+                    <span>Your Code: <strong>#{flash.userCode}</strong></span>
+                </p>
+            </div>
+
+            <h:link outcome="landing.xhtml" class="btn-home">
+                <i class="fas fa-arrow-right"></i>
+                Proceed to Login
+            </h:link>
+        </div>
+    </h:body>
+</html> 

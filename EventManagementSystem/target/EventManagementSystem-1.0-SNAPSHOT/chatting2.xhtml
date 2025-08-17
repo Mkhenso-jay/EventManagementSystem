@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Venue Owner Chat</title>
+        <style>
+            body {
+                font-family:'Segoe UI', sans-serif;
+                background:#f0f2f5;
+                margin:0
+            }
+            #chat-container {
+                max-width:700px;
+                margin:40px auto;
+                background:white;
+                border-radius:8px;
+                box-shadow:0 4px 12px rgba(0,0,0,0.1);
+                display:flex;
+                flex-direction:column;
+                height:80vh;
+                overflow:hidden;
+            }
+            header {
+                background:#4a90e2;
+                color:white;
+                padding:16px;
+                font-size:1.25rem
+            }
+            #messages {
+                flex:1;
+                overflow-y:auto;
+                padding:16px;
+                background:#fafafa;
+            }
+            .message {
+                margin-bottom:12px;
+                padding:10px;
+                border-radius:6px;
+                background:#e1f0ff;
+                max-width:75%;
+            }
+            .message.self {
+                background:#d1e7dd;
+                margin-left:auto
+            }
+            .message .sender {
+                font-weight:bold;
+                margin-bottom:4px;
+                display:block
+            }
+            .controls {
+                display:flex;
+                flex-direction:column;
+                gap:8px;
+                padding:16px;
+                border-top:1px solid #ddd;
+                background:#fff;
+            }
+            .controls select, .controls input {
+                width:100%;
+                padding:10px;
+                border:1px solid #ccc;
+                border-radius:4px;
+            }
+            .controls button {
+                margin-top:8px;
+                padding:10px;
+                background:#4a90e2;
+                border:none;
+                color:white;
+                border-radius:4px;
+                cursor:pointer;
+                font-weight:bold;
+            }
+            .controls button:hover {
+                background:#357ABD
+            }
+            header h:button {
+                background: rgba(255,255,255,0.1);
+                padding: 6px 12px;
+                border-radius: 4px;
+                transition: background 0.3s ease;
+            }
+
+            header h:button:hover {
+                background: rgba(255,255,255,0.2);
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <div id="chat-container">
+            <header>
+                <h:button value="← Back" outcome="homeVenueOwner" style="background:none; border:none; color:white; margin-right:15px; cursor:pointer;"/>
+                📩 Venue Owner Chat
+            </header>
+
+            <h:form prependId="false" style="display:flex; flex-direction:column; flex:1;">
+                <!-- Chat window -->
+                <div id="messages" style="flex:1; overflow:auto; padding:16px; background:#fafafa;">
+                    <ui:repeat value="#{eventBean.chatMessages}" var="m">
+                        <div class="message #{m.sender.id eq eventBean.loginBean.loggedInOrganizer.id ? 'self' : ''}">
+                            <span class="sender">#{m.sender.firstName}:</span>
+                            <span class="content">#{m.content}</span>
+                        </div>
+                    </ui:repeat>
+                </div>
+
+                <!-- Controls pinned to bottom -->
+                <div class="controls" style="padding:16px; border-top:1px solid #ddd; background:#fff;">
+                    <!-- 1) Only your booked venue-owners -->
+                    <h:selectOneMenu value="#{venueOwnerBean.selectedOrganizerId}">
+                        <f:selectItems value="#{venueOwnerBean.organizerList}" var="organizer"
+                                       itemValue="#{organizer.id}"
+                                       itemLabel="#{organizer.firstName} #{organizer.lastName}"/>
+                        <f:ajax listener="#{venueOwnerBean.loadChat}" render="messages"/>
+                    </h:selectOneMenu>
+
+                    <!-- 2) Message input -->
+                    <h:inputText id="messageInput"
+                                 value="#{eventBean.chatContent}">
+                        <f:passThroughAttribute name="placeholder" value="Type your message…"/>
+                    </h:inputText>
+
+                    <!-- 3) Send -->
+                    <h:commandButton value="Send" action="#{venueOwnerBean.sendChatToOrganizer}">
+                        <f:ajax execute="@form" render="messages,messageInput"/>
+                    </h:commandButton>
+                </div>
+            </h:form>
+
+
+        </div>
+    </h:body>
+</html>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Eventify | Login Failed</title>
+    <style>
+        :root {
+            --primary: #2ec4b6;
+            --danger: #ef5350;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --secondary: #6c757d;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui;
+            background: #f5f7fa;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 560px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .logo {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        h1 {
+            color: var(--danger);
+            font-size: 1.7rem;
+            margin: 1rem 0;
+        }
+
+        .error-illustration {
+            width: 140px;
+            height: 140px;
+            background: #fde8e8;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: 0 auto;
+            color: var(--danger);
+        }
+
+        .error-illustration svg {
+            width: 80px;
+            height: 80px;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: var(--danger);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .action-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #26a89b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(46, 196, 182, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.5rem;
+                border-radius: 1rem;
+            }
+            
+            .error-illustration {
+                width: 100px;
+                height: 100px;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+</h:head>
+
+<h:body>
+    <div class="card">
+        <div class="logo">
+            <i class="fas fa-ticket-alt"></i>
+            Eventify
+        </div>
+
+        <div class="error-illustration">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+            </svg>
+        </div>
+
+        <h1>Login Failed</h1>
+
+        <h:form>
+            <h:outputText value="Invalid email or password. Please check your credentials and try again." 
+                        styleClass="error-message" />
+
+            <div class="action-grid">
+                <h:commandButton action="landing.xhtml" styleClass="btn btn-primary"
+                                value="Return to Home">
+                  
+                </h:commandButton>
+                
+                <h:commandButton action="signup.xhtml?faces-redirect=true" 
+                                styleClass="btn btn-secondary"
+                                value="Create New Account">
+               
+                </h:commandButton>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>

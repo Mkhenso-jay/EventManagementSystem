@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <head>
+        <title>Eventify </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+        <style>
+            :root {
+                --primary: #2ec4b6;           /* Updated primary color */
+                --primary-dark: #1fa89a;
+                --secondary: #ff6b6b;        /* Updated to coral accent */
+                --dark: #2d3436;             /* Darker text color */
+                --light: #f8f9fa;
+                --gray: #6c757d;
+                --success: #22c55e;
+                --border-radius: 8px;
+                --box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+                --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            body {
+                background-color: #ffffff;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                margin: 0;
+                padding: 0;
+                color: var(--dark);
+            }
+
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: var(--primary);
+                padding: 0 5%;
+                height: 80px;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                box-shadow: var(--box-shadow);
+                border-bottom: 2px solid var(--primary-dark);
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                transition: var(--transition);
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+                font-weight: 700;
+                margin: 0;
+                color: var(--light);
+                letter-spacing: -0.5px;
+                position: relative;
+                padding-left: 40px;
+            }
+
+            .logo h1::before {
+                content: '🎉';
+                position: absolute;
+                left: 0;
+                top: -2px;
+                font-size: 1.4rem;
+            }
+
+            nav {
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            nav a {
+                color: rgba(255, 255, 255, 0.95);
+                text-decoration: none;
+                padding: 10px 18px;
+                font-weight: 500;
+                border-radius: var(--border-radius);
+                transition: var(--transition);
+                font-size: 0.95rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            nav a:hover {
+                background: rgba(255, 255, 255, 0.15);
+                transform: translateY(-1px);
+                color: white;
+            }
+
+            nav a svg {
+                stroke-width: 1.8;
+            }
+
+            .cta {
+                background-color: var(--secondary);
+                color: white !important;
+                padding: 10px 24px !important;
+                font-weight: 600 !important;
+                box-shadow: 0 4px 12px rgba(255, 107, 107, 0.25);
+            }
+
+            .cta:hover {
+                background-color: #ff5252;
+                transform: translateY(-2px) !important;
+            }
+
+            .logout-link {
+                color: var(--secondary);
+                text-decoration: none;
+                font-weight: 600;
+                border: 2px solid var(--secondary);
+                padding: 8px 16px;
+                border-radius: var(--border-radius);
+                transition: var(--transition);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .logout-link:hover {
+                background-color: var(--secondary);
+                color: white !important;
+                box-shadow: 0 4px 12px rgba(255, 107, 107, 0.25);
+            }
+
+            .logout-icon {
+                font-size: 0.9rem;
+            }
+
+            @media (max-width: 768px) {
+                header {
+                    padding: 0 5%;
+                    height: 70px;
+                }
+
+                .logo h1 {
+                    font-size: 1.5rem;
+                    padding-left: 36px;
+                }
+
+                nav {
+                    gap: 0.75rem;
+                }
+
+                nav a {
+                    padding: 8px 14px;
+                    font-size: 0.85rem;
+                }
+
+                .cta {
+                    padding: 8px 18px !important;
+                }
+
+                .logout-link {
+                    padding: 6px 12px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <h1>Eventify</h1>
+            </div>
+            <nav>
+
+
+
+                <a href="helpcenter.xhtml">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    Help
+                </a>
+                <a href="contactsales.xhtml" class="cta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    Contact Sales
+                </a>
+
+                <h:form style="display: inline;">
+                    <h:commandLink action="#{loginBean.logout}" styleClass="logout-link">
+                        <i class="fas fa-power-off logout-icon"></i> Logout
+                    </h:commandLink>
+                </h:form>
+            </nav>
+        </header>
+    </body>
+</html>

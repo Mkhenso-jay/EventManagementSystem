@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>Success</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #2ec4b6;
+            --secondary: #1fa89a;
+            --accent: #ff9f1c;
+            --surface: rgba(255, 255, 255, 0.95);
+            --text: #2d3748;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .nav-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            text-align: center;
+            border-top: 2px solid var(--primary);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 8rem auto 6rem;
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: var(--primary);
+            margin: 0 0 1.5rem;
+            font-size: 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(46,196,182,0.2);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            animation: bounce 1s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 6rem 1rem 4rem;
+                padding: 1.5rem;
+            }
+            
+            .nav-title {
+                font-size: 1.25rem;
+            }
+            
+            .footer {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</h:head>
+<h:body>
+    <!-- Navigation -->
+    <div class="nav">
+        <div class="nav-title">
+            <i class="fas fa-check-circle"></i>
+            SecureRecovery
+        </div>
+        <div class="nav-links">
+            <h:link outcome="landing.xhtml" styleClass="btn-home">
+                <i class="fas fa-home"></i>
+                Home
+            </h:link>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h2>Update Successful!</h2>
+        <p>Your account credentials have been updated securely. A confirmation email has been sent to your registered address.</p>
+        
+        <h:link outcome="landing.xhtml" styleClass="btn-home">
+            <i class="fas fa-arrow-left"></i>
+           Home
+        </h:link>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2024 SecureRecovery. All rights reserved. 
+            <a href="#" style="color: var(--primary); text-decoration: none;">
+                Privacy Policy
+            </a>
+        </p>
+    </div>
+</h:body>
+</html>

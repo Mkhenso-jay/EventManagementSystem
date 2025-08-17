@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Eventify |Payment Successful</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --surface: #ffffff;
+            --background: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--background) 0%, #f0fdf4 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-width: 640px;
+            width: 100%;
+            position: relative;
+            border: 1px solid #e2e8f0;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: -4rem auto 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+        }
+
+        h1 {
+            color: #1e293b;
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin: 0 0 1rem;
+            text-align: center;
+        }
+
+        .event-highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 0.75rem;
+        }
+
+        .ticket-table {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-collapse: collapse;
+        }
+
+        .ticket-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: #f1f5f9;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .ticket-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .total-amount {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            width: fit-content;
+            margin: 1rem auto 0;
+        }
+
+        .btn-home:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+</h:head>
+
+<h:body>
+    <h:form>
+        <div class="card">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+
+            <h1>Payment Successful! 🎉</h1>
+            
+            <div class="detail-grid">
+                <div>
+                    <div class="text-sm text-slate-500">Event</div>
+                    <div class="event-highlight">#{paymentBean.event.eventName}</div>
+                </div>
+                <div>
+                    <div class="text-sm text-slate-500">Date</div>
+                    <div>#{paymentBean.event.eventDate}</div>
+                </div>
+                <div>
+                    <div class="text-sm text-slate-500">Venue</div>
+                    <div>#{paymentBean.event.venue.venueName}</div>
+                </div>
+                <div>
+                    <div class="text-sm text-slate-500">Customer</div>
+                    <div>#{paymentBean.buyer.email}</div>
+                </div>
+            </div>
+
+            <table class="ticket-table">
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{paymentBean.purchasedTickets}" var="ticket">
+                        <tr>
+                            <td>#{ticket.id}</td>
+                            <td>R#{ticket.ticketPrice}</td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+
+            <div class="total-amount">
+                <span>Total Paid:</span>
+                <span>R#{paymentBean.totalAmount}</span>
+            </div>
+
+            <h:link outcome="homeTicketBuyer.xhtml" styleClass="btn-home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Return to Events
+            </h:link>
+        </div>
+    </h:form>
+
+    <f:event type="preRenderView" listener="#{paymentBean.initialize}" />
+</h:body>
+</html>

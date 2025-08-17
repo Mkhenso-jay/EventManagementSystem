@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+    <title>Chatting Page</title>
+
+    <style type="text/css">
+        #chat-container {
+            width: 500px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+
+        #messages {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .message {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sender {
+            font-weight: bold;
+        }
+
+        #message-input {
+            width: 80%;
+            padding: 8px;
+        }
+
+        #send-button {
+            padding: 8px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #send-button:hover {
+            background-color: #218838;
+        }
+
+        #confirmation {
+            font-size: 14px;
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+
+    <!-- Load external JavaScript to avoid XHTML entity issues -->
+    <script type="text/javascript" src="resources/js/chatting.js"></script>
+</h:head>
+
+<h:body>
+    <div id="chat-container">
+        <h2>Chat Room</h2>
+        <div id="messages"></div>
+        <input type="text" id="message-input" placeholder="Type a message..." />
+        <button id="send-button" onclick="sendMessage()">Send</button>
+        <div id="confirmation"></div> <!-- Added confirmation area -->
+    </div>
+</h:body>
+
+<script type="text/javascript">
+    var bookingId = 1;
+    var senderType = 'organiser';
+    var senderId = 3;
+
+    // Function to send a message
+    function sendMessage() {
+        var input = document.getElementById('message-input');
+        var message = input.value;
+
+        if (message.length === 0) return;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/chat/sendMessage', true);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById('confirmation').innerText = "Message sent successfully!";
+                setTimeout(function() {
+                    document.getElementById('confirmation').innerText = ""; // Clear confirmation after 3 seconds
+                }, 3000);
+            }
+        };
+        xhr.send(JSON.stringify({
+            bookingId: bookingId,
+            senderType: senderType,
+            senderId: senderId,
+            message: message
+        }));
+
+        input.value = ''; // Clear input field after sending
+        setTimeout(loadMessages, 500); // Reload messages to update chat
+    }
+
+    // Function to load messages from the server
+    function loadMessages() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/chat/getMessages?bookingId=' + bookingId, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var messages = JSON.parse(xhr.responseText);
+                var container = document.getElementById('messages');
+                container.innerHTML = ''; // Clear existing messages
+                for (var i = 0; i < messages.length; i++) {
+                    var msg = messages[i];
+                    var div = document.createElement('div');
+                    div.className = 'message';
+                    div.innerHTML = '<span class="sender">' + msg.senderType + ':</span> ' + msg.message;
+                    container.appendChild(div);
+                }
+            }
+        };
+        xhr.send(null);
+    }
+
+    // Load messages when the page loads and update every 3 seconds
+    window.onload = function () {
+        loadMessages();
+        setInterval(loadMessages, 3000); // Refresh messages every 3 seconds
+    };
+</script>
+</html>

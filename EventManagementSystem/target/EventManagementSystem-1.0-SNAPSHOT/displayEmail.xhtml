@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Recovered Email</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <style>
+            :root {
+                --primary: #2ec4b6;
+                --secondary: #1fa89a;
+                --accent: #ff9f1c;
+                --surface: rgba(255, 255, 255, 0.95);
+                --error: #ff4d4d;
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+            }
+
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                font-family: 'Inter', system-ui, -apple-system, sans-serif;
+                overflow: hidden;
+                position: relative;
+            }
+
+            body::before {
+                content: '';
+                position: absolute;
+                width: 200vw;
+                height: 200vh;
+                background: 
+                    radial-gradient(circle at 10% 20%, rgba(255,159,28,0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 90% 80%, rgba(46,196,182,0.1) 0%, transparent 50%);
+                animation: float 15s linear infinite;
+            }
+
+            /* Navigation Styles */
+            .nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+                border-bottom: 2px solid var(--primary);
+                z-index: 1000;
+            }
+
+            .nav-title {
+                font-weight: 700;
+                font-size: 1.5rem;
+                color: var(--primary);
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 1rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.25rem;
+                background-color: var(--primary);
+                color: white;
+                border-radius: 0.5rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+
+            .btn:hover {
+                background-color: var(--secondary);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(46, 196, 182, 0.2);
+            }
+
+            /* Card Styles */
+            .card {
+                position: relative;
+                z-index: 1;
+                max-width: 480px;
+                margin: 15vh auto 0;
+                background: var(--surface);
+                padding: 2.5rem;
+                border-radius: 1.5rem;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+                backdrop-filter: blur(10px);
+                text-align: center;
+                transform: translateY(0);
+                transition: transform 0.3s ease;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+            .security-tips {
+                margin: 2rem 0;
+                padding: 1.5rem;
+                background: rgba(46,196,182,0.1);
+                border-radius: 1rem;
+                text-align: left;
+            }
+
+            .security-tips h3 {
+                color: var(--primary);
+                margin-top: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .email-display {
+                padding: 1.5rem;
+                background: rgba(46,196,182,0.1);
+                border-radius: 1rem;
+                margin: 2rem 0;
+            }
+
+            .email {
+                font-size: 1.25rem;
+                color: var(--primary);
+                font-weight: 600;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.75rem;
+            }
+
+            .error-message {
+                color: var(--error);
+                padding: 1.5rem;
+                background: rgba(255,77,77,0.1);
+                border-radius: 1rem;
+                margin: 2rem 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.75rem;
+            }
+
+            .btn-home {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 1rem 2rem;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                color: white;
+                text-decoration: none;
+                border-radius: 0.75rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+
+            .btn-home:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(46,196,182,0.2);
+            }
+
+            @media (max-width: 600px) {
+                .card {
+                    margin: 6rem 1rem 1rem;
+                    padding: 1.5rem;
+                }
+                
+                .nav-title {
+                    font-size: 1.25rem;
+                }
+                
+                .btn {
+                    padding: 0.5rem 1rem;
+                }
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <!-- Navigation -->
+        <div class="nav">
+            <div class="nav-title">
+                <i class="fas fa-user-shield"></i> SecureRecovery
+            </div>
+            <div class="nav-links">
+                <a href="landing.xhtml" class="btn">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="signup.xhtml" class="btn">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="card">
+            <h1>
+                <i class="fas fa-envelope-circle-check"></i>
+                Email Recovery Result
+            </h1>
+
+            <h:panelGroup rendered="#{not empty forgotBean.retrievedEmail}">
+                <div class="email-display">
+                    <p class="email">
+                        <i class="fas fa-envelope"></i>
+                        #{forgotBean.retrievedEmail}
+                    </p>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{empty forgotBean.retrievedEmail}">
+                <div class="error-message">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    No email found for the provided user code
+                </div>
+            </h:panelGroup>
+
+            <div class="security-tips">
+                <h3><i class="fas fa-shield-alt"></i> Security Tips</h3>
+                <ul>
+                    <li>Never share your recovery code with anyone</li>
+                    <li>Enable two-factor authentication</li>
+                    <li>Regularly update your password</li>
+                    <li>Watch out for phishing attempts</li>
+                </ul>
+            </div>
+
+            <h:link outcome="landing.xhtml" styleClass="btn-home">
+                <i class="fas fa-home"></i>
+                Return to Home
+            </h:link>
+        </div>
+    </h:body>
+</html>

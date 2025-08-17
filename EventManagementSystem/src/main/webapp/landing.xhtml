@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+        <title>Eventify | Plan, Manage &amp; Enjoy Amazing Events</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+        <style>
+            :root {
+                --primary: #6C63FF;
+                --secondary: #FF6584;
+                --accent: #2EC4B6;
+                --dark: #263238;
+                --light: #F8F9FA;
+                --success: #388E3C;
+                --text: #333333;
+                --text-light: #6C757D;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: var(--text);
+                line-height: 1.6;
+                background-color: var(--light);
+            }
+
+            @keyframes slideBackground {
+                0% {
+                    background-image: url('images/one.jpg');
+                }
+                33% {
+                    background-image: url('images/two.jpg');
+                }
+                66% {
+                    background-image: url('images/three.jpg');
+                }
+                100% {
+                    background-image: url('images/four.jpg');
+                }
+            }
+
+            .hero {
+                height: 90vh;
+                min-height: 600px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-align: center;
+                padding: 20px;
+                font-size: 28px;
+                background-size: cover;
+                background-position: center;
+                animation: slideBackground 15s infinite ease-in-out;
+                position: relative;
+                z-index: 1;
+            }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, rgba(108, 99, 255, 0.7) 0%, rgba(46, 196, 182, 0.7) 100%);
+                z-index: -1;
+            }
+
+            .hero-content {
+                max-width: 800px;
+                padding: 0 20px;
+            }
+
+            .hero h1 {
+                color: white;
+                font-size: 3.5rem;
+                margin-bottom: 20px;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                line-height: 1.2;
+            }
+
+            .hero p {
+                color: white;
+                font-size: 1.2rem;
+                margin-bottom: 30px;
+                opacity: 0.9;
+            }
+
+            .btn-1 {
+                display: inline-block;
+                padding: 12px 30px;
+                border-radius: 50px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                border: none;
+                font-size: 1rem;
+            }
+
+            .btn-primary-1 {
+                background-color: var(--secondary);
+                color: white;
+                box-shadow: 0 4px 15px rgba(255, 101, 132, 0.4);
+            }
+
+            .btn-primary-1:hover {
+                background-color: #ff4d73;
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(255, 101, 132, 0.6);
+            }
+
+            .btn-outline-1 {
+                background-color: transparent;
+                color: white;
+                border: 2px solid white;
+                margin-left: 15px;
+            }
+
+            .btn-outline-1:hover {
+                background-color: white;
+                color: var(--primary);
+                transform: translateY(-3px);
+            }
+
+            .container {
+                width: 85%;
+                max-width: 1200px;
+                margin: auto;
+                padding: 60px 0;
+            }
+
+            .section-title {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+                color: var(--dark);
+                margin-bottom: 15px;
+                position: relative;
+                display: inline-block;
+            }
+
+            .section-title h2::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 4px;
+                background: var(--primary);
+                border-radius: 2px;
+            }
+
+            .section-title p {
+                color: var(--text-light);
+                font-size: 1.1rem;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+
+            .features {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 30px;
+                margin: 50px 0;
+            }
+
+            .feature-box {
+                flex: 1;
+                min-width: 300px;
+                background-size: cover;
+                background-position: center;
+                color: white;
+                height: 350px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                border-radius: 16px;
+                padding: 30px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                position: relative;
+                overflow: hidden;
+                transition: all 0.4s ease;
+            }
+
+            .feature-box:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            }
+
+            .feature-box::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
+                z-index: 0;
+            }
+
+            .feature-box * {
+                position: relative;
+                z-index: 1;
+            }
+
+            .feature-box h3 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            .feature-box p {
+                margin-bottom: 20px;
+                opacity: 0.9;
+            }
+
+            .features .feature-box:nth-child(1) {
+                background-image: url('images/1f.jpg');
+            }
+
+            .features .feature-box:nth-child(2) {
+                background-image: url('images/2f.jpg');
+            }
+
+            .features .feature-box:nth-child(3) {
+                background-image: url('images/3f.jpg');
+            }
+
+            .stats {
+                background-color: var(--primary);
+                color: white;
+                padding: 80px 0;
+                text-align: center;
+            }
+
+            .stats-container {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+
+            .stat-item {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .stat-number {
+                font-size: 3.5rem;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            .stat-label {
+                font-size: 1.2rem;
+                opacity: 0.9;
+            }
+
+            .testimonials {
+                background-color: var(--light);
+                padding: 80px 0;
+            }
+
+            .testimonial-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+            }
+
+            .testimonial-card {
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            }
+
+            .testimonial-text {
+                font-style: italic;
+                margin-bottom: 20px;
+                color: var(--text-light);
+            }
+
+            .testimonial-author {
+                display: flex;
+                align-items: center;
+            }
+
+            .author-avatar {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                margin-right: 15px;
+                object-fit: cover;
+            }
+
+            .author-info h4 {
+                margin-bottom: 5px;
+            }
+
+            .author-info p {
+                color: var(--text-light);
+                font-size: 0.9rem;
+            }
+
+            .cta {
+                background-color: var(--dark);
+                color: white;
+                text-align: center;
+                padding: 100px 0;
+                background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/cta-bg.jpg');
+                background-size: cover;
+                background-position: center;
+            }
+
+            .cta h2 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .cta p {
+                max-width: 700px;
+                margin: 0 auto 30px;
+                opacity: 0.9;
+            }
+
+            footer {
+                background: var(--dark);
+                color: rgba(255, 255, 255, 0.95);
+                padding: 60px 0 30px;
+            }
+
+            .footer-content {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 40px;
+                margin-bottom: 40px;
+            }
+
+            .footer-column {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .footer-column h3 {
+                color: white;
+                margin-bottom: 20px;
+                font-size: 1.2rem;
+            }
+
+            .footer-column ul {
+                list-style: none;
+            }
+
+            .footer-column ul li {
+                margin-bottom: 10px;
+            }
+
+            .footer-column ul li a {
+                color: rgba(255,255,255,0.7);
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+            .footer-column ul li a:hover {
+                color: white;
+            }
+
+            .social-links {
+                display: flex;
+                gap: 15px;
+            }
+
+            .social-links a {
+                color: white;
+                font-size: 1.2rem;
+                transition: transform 0.3s ease;
+            }
+
+            .social-links a:hover {
+                transform: translateY(-3px);
+            }
+
+            .copyright {
+                text-align: center;
+                padding-top: 30px;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                color: rgba(255,255,255,0.7);
+                font-size: 0.9rem;
+            }
+
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+
+                .hero p {
+                    font-size: 1rem;
+                }
+
+                .btn {
+                    padding: 10px 20px;
+                }
+
+                .features {
+                    flex-direction: column;
+                }
+
+                .feature-box {
+                    min-width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h:form>
+            <ui:include src="headercomponent.xhtml"/>
+
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Plan, Manage &amp; Enjoy Amazing Events</h1>
+                    <p>From intimate gatherings to large-scale conferences, we provide the tools to make your event unforgettable.</p>
+                    <div>
+                        <h:link value="Get Started" outcome="signup" styleClass="btn-1 btn-primary-1" />
+
+                        <h:link value="Learn More" outcome="landing" styleClass="btn-1 btn-outline-1" />
+
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="container">
+                <div class="section-title">
+                    <h2>Why Choose Eventify?</h2>
+                    <p>We provide comprehensive event management solutions that save you time, reduce stress, and create memorable experiences.</p>
+                </div>
+
+                <div class="features">
+                    <div class="feature-box">
+                        <h3>Seamless Event Booking</h3>
+                        <p>Our intuitive platform makes booking venues and planning events effortless with just a few clicks.</p>
+
+                        <h:link value="Explore Events" outcome="exploreEvents" styleClass="btn-1 btn-outline-1" />
+                    </div>
+                    <div class="feature-box">
+                        <h3>Wide Selection of Venues</h3>
+                        <p>Discover thousands of unique venues perfect for any occasion, from weddings to corporate retreats.</p>
+                        <h:commandButton value="Browse Venues" action="venues.xhtml" styleClass="btn-1 btn-outline-1"/>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Secure Online Ticketing</h3>
+                        <p>Sell and manage tickets with our secure, fraud-proof ticketing system and real-time analytics.</p>
+                        <h:commandButton value="Sell Tickets" action="ticketing.xhtml" styleClass="btn-1 btn-outline-1"/>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats">
+                <div class="container">
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-number">10,000+</div>
+                            <div class="stat-label">Events Hosted</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5,000+</div>
+                            <div class="stat-label">Venues Listed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2M+</div>
+                            <div class="stat-label">Tickets Sold</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Customer Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section class="testimonials">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>What Our Clients Say</h2>
+                        <p>Don't just take our word for it - hear from event organizers who've transformed their planning process.</p>
+                    </div>
+
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <div class="testimonial-text">
+                                "Eventify completely revolutionized how we organize our annual conference. The ticketing system alone saved us 20 hours of admin work!"
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="images/testimonial1.jpg" alt="Sarah Johnson" class="author-avatar"/>
+                                <div class="author-info">
+                                    <h4>Sarah Johnson</h4>
+                                    <p>Tech Conference Organizer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div class="testimonial-text">
+                                "Finding the perfect wedding venue was effortless with Eventify. We booked our dream location in just two days!"
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="images/testimonial2.jpg" alt="Michael &amp; Emily" class="author-avatar"/>
+                                <div class="author-info">
+                                    <h4>Michael &amp; Emily</h4>
+                                    <p>Newlyweds</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div class="testimonial-text">
+                                "The analytics dashboard helps me understand attendee behavior better than any other platform I've used. Highly recommended!"
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="images/testimonial3.jpg" alt="David Chen" class="author-avatar"/>
+                                <div class="author-info">
+                                    <h4>David Chen</h4>
+                                    <p>Music Festival Director</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta">
+                <div class="container">
+                    <h2>Ready to Transform Your Event Planning?</h2>
+                    <p>Join thousands of event organizers who are creating unforgettable experiences with Eventify.</p>
+                    <div>
+                        <h:commandButton value="Start Your Free Trial" action="signup.xhtml" styleClass="btn-1 btn-primary-1"/>
+                        <h:commandButton value="Schedule a Demo" action="demo.xhtml" styleClass="btn-1 btn-outline-1"/>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-column">
+                            <h3>Eventify</h3>
+                            <p>Making event planning simple, efficient, and enjoyable since 2015.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="footer-column">
+                            <h3>Features</h3>
+                            <ul>
+                                <li><a href="#">Venue Booking</a></li>
+                                <li><a href="#">Event Ticketing</a></li>
+                                <li><a href="#">Event Management</a></li>
+                                <li><a href="#">Real-time Analytics</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-column">
+                            <h3>Company</h3>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Careers</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-column">
+                            <h3>Support</h3>
+                            <ul>
+                                <li><a href="#">FAQs</a></li>
+                                <li><a href="#">Help Center</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Service</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="copyright">
+                        <p>&amp;copy; 2025 Eventify. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: var(--secondary);"></i> for event organizers worldwide</p>
+                    </div>
+                </div>
+            </footer>
+        </h:form>
+    </body>
+</html>

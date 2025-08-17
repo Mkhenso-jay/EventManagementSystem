@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Eventify | contact sales</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+    body {
+        background-color: #ffffff;
+        color: #333333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #2ec4b6; 
+        margin-bottom: 30px;
+        background: #2ec4b6;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .info-panel {
+        background-color: #2ec4b6;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 6px rgba(99, 102, 241, 0.05); /* Subtle indigo tint */
+    }
+
+    .info-panel p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #444444;
+    }
+
+    form {
+        background-color: #f8f9fa;
+        padding: 25px;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 6px rgba(20, 184, 166, 0.05); /* Subtle teal tint */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+        color: #14B8A6; /* Teal */
+    }
+
+    input[type="text"], input[type="email"], textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        color: #333333;
+        font-size: 15px;
+        transition: border-color 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+        border-color: #6366F1;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+    }
+
+    textarea {
+        resize: vertical;
+        height: 100px;
+    }
+
+    .submit-button {
+        background: linear-gradient(135deg, #6366F1 0%, #14B8A6 100%);
+        border: none;
+        color: white;
+        padding: 12px 25px;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .submit-button:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
+
+    .cta {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .cta a {
+        color: #14B8A6; /* Teal */
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .cta a:hover {
+        color: #0f9483; /* Darker teal */
+        text-decoration: underline;
+    }
+
+    .cta strong {
+        color: #6366F1; /* Indigo */
+        font-weight: 600;
+    }
+</style>
+    </h:head>
+
+    <h:body>
+        <ui:include src="headercomponent.xhtml" />
+
+        <div class="container">
+            <h1>Contact Our Sales Team</h1>
+
+            <div class="info-panel">
+                <p>Have questions about our Event Management System? Interested in upgrading your plan or exploring custom solutions for your organization?</p>
+                <p>Fill out the form below and our sales team will reach out to you within 24 hours.</p>
+            </div>
+
+            <h:form>
+                <label for="name">Your Name</label>
+                <h:inputText id="name" value="#{salesContactBean.name}" required="true" />
+
+                <label for="email">Email Address</label>
+                <h:inputText id="email" value="#{salesContactBean.email}" required="true" />
+
+                <label for="company">Company / Organization</label>
+                <h:inputText id="company" value="#{salesContactBean.company}" />
+
+                <label for="message">Message</label>
+                <h:inputTextarea id="message" value="#{salesContactBean.message}" required="true" />
+
+                <h:commandButton value="Send Message" action="#{salesContactBean.sendMessage}" styleClass="submit-button" />
+            </h:form>
+
+            <div class="cta">
+                <p>Prefer to email directly? Reach us at <a href="mailto:sales@eventmanager.com">sales@eventmanager.com</a></p>
+                <p>Call us: <strong>+1 234 567 8910</strong></p>
+            </div>
+        </div>
+    </h:body>
+</html>
