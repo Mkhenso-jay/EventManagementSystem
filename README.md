@@ -59,7 +59,7 @@ All members contributed equally to development and documentation:
  ## 🖼️ Screenshots
 
 ### Home Page
-![Home Page](EventManagementSystem/ScreenshotHOME.png)
+![Home Page](EventManagementSystem/Screenshot  HOME.png)
 
 ### Event Calendar
 ![Event Calendar](EventManagementSystem/Screenshot%2002.png)
