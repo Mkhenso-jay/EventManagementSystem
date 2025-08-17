@@ -5,7 +5,7 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)
  
 
-A **web-based Event Management System** built using **XHTML, Java, and NetBeans**, designed to efficiently manage events, venues, and calendars. Perfect for organizers and admins who need a clear, functional system for scheduling and venue management.
+A **web-based Event Management System** built using **XHTML, Java, and NetBeans**, designed to efficiently manage events, venues, and calendars. Perfect for event organizers and venue owners who need a clear, functional system for scheduling and venue management.
 
 
 ## 🌟 Features
