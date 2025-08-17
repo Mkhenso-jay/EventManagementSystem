@@ -23,3 +23,5 @@ src/main/resources/META-INF/persistence.xml
 src/main/resources/db.properties
 glassfish/domains/
 domain.xml
+node_modules/
+
