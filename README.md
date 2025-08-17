@@ -1,8 +1,9 @@
 # 🎉 Event Management System
 
-[![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.java.com/)  
-[![NetBeans](https://img.shields.io/badge/NetBeans-2F4F4F?style=for-the-badge&logo=apache-netbeans&logoColor=white)](https://netbeans.apache.org/)  
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
+![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white)
+![NetBeans](https://img.shields.io/badge/NetBeans-2F4F4F?style=flat-square&logo=apache-netbeans&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+ 
 
 A **web-based Event Management System** built using **XHTML, Java, and NetBeans**, designed to efficiently manage events, venues, and calendars. Perfect for organizers and admins who need a clear, functional system for scheduling and venue management.
 
