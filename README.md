@@ -41,7 +41,8 @@ All members contributed equally to development and documentation:
 1. **Clone the repository**
 
  git clone https://github.com/Mkhenso-jay/EventManagementSystem.git
-  cd EventManagementSystem
+ 
+ cd EventManagementSystem
 
 2.Open the project in NetBeans and configure a local server (e.g., GlassFish).
 
